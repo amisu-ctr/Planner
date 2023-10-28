@@ -4,7 +4,7 @@ const tasks = require('./routes/tasks');
 const connectDB = require('./db/connect');
 require('dotenv').config();
 
-// app.use(express.static('./public'))
+app.use(express.static('./public'))
 app.use(express.json());
 
 // routes
@@ -20,7 +20,7 @@ app.use('/api/v1/tasks', tasks);
 // app.patch('/api/v1/tasks/:id', tasks);       - update task
 // app.delete('/api/v1/tasks/:id', tasks);       - delete task
 
-const port = 4000;
+const port = 3000;
 
 const start = async () => {
   try {
