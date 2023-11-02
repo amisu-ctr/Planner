@@ -9,7 +9,11 @@ app.use(express.json());
 
 // routes
 app.get('/hello', (req, res) => {
-  res.send('Task Manager App');
+  res.json({
+    ipaddress: req.socket.remoteAddress,
+    language: req.headers['accept-language'],
+    software: req.headers['user-agent']
+  })
 });
 
 app.use('/api/v1/tasks', tasks);
