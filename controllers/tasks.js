@@ -1,13 +1,10 @@
 const Task = require('../models/Task');
+const asyncWrapper = require('../middleware/async')
 
-const getAllTasks = async (req, res) => {
-  try {
+const getAllTasks = asyncWrapper(async (req, res) => {
     const tasks = await Task.find({})
-    res.status(200).json({tasks})
-  } catch(error) {
-    res.status(500).json({msg: error})
-  }
-};
+    res.status(200).json({status:'success', data:{tasks, nbHits: tasks.length}})
+});
 
 const createTask = async (req, res) => {
   try {
@@ -35,8 +32,18 @@ const getTask = async(req, res) => {
 const updateTask = async (req, res) => {
   try {
     const {id: taskID} = req.params
-    const task = await Task.findOneAndUpdate({_id:taskID}, req.body)
+    const task = await Task.findOneAndUpdate({_id:taskID}, req.body, {
+      //option validators needed to respond with the new value
+      new: true,
+      runValidators: true,
+      overwrite: true
+    })
+    if(!task) {
+      return res.status(404).json({msg: "No task with id : "+taskID})
+    }
+    res.status(200).json({task})
   } catch(error) {
+    res.status(500).json({ msg: error });
   }
 };
 

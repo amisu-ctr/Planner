@@ -8,7 +8,9 @@ const showTasks = async () => {
   loadingDOM.style.visibility = 'visible'
   try {
     const {
-      data: { tasks },
+      // Axios returns with data . so if we set res on our server with  res.status(200).json({status:'success', data:{tasks, nbHits: tasks.length}}). We would have to distructure wit axios like below
+      data: {data:{tasks}}
+      // data: { tasks },
     } = await axios.get('/api/v1/tasks');
     if (tasks.length < 1) {
       tasksDOM.innerHTML = '<h5 class="empty-list">No tasks in your list</h5>'
