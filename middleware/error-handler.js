@@ -1,9 +1,11 @@
 const errorHandleMiddlwware = (err, req, res, next) => {
     console.log(err)
-    return res.status(500).json({msg:"somethingwentwrong"}) //This is custom
-    // return res.status(500).json({msg:err}) //This returns the error from the controller
-    // just with the above post response with the hardcode messge but getsingletask didnt
-    // Some kind of message can be hardcoded into the msg:"Something went wrong"
+    return res.status(err.status).json({msg: err.message}) 
 }
 
 module.exports = errorHandleMiddlwware
+
+// console.log(err) is currently displayed in the console after calling 
+//the endpoint in postman so we now have access to custom errors in the middlware
+//after creating and passing it to next() in the controller of each endpoint for their
+//unique error text

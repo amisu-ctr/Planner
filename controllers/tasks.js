@@ -14,20 +14,19 @@ const createTask = asyncWrapper(async (req, res) => {
 
 });
 
-const getTask = async(req, res, next) => {
+const getTask = asyncWrapper(async(req, res, next) => {
   const  {id:taskID} = req.params
   const task = await Task.findOne({_id:taskID})
   if(!task) {
-    const error = new Error('Not Found');
+    const error = new Error('Not Found')
     error.status = 404;
     return next(error)
     return res.status(404).json({msg: "No task with id : "+taskID})
   }
   res.status(200).json({task})
-};
+});
 
 const updateTask = asyncWrapper( async (req, res) => {
-
     const {id: taskID} = req.params
     const task = await Task.findOneAndUpdate({_id:taskID}, req.body, {
       //option validators needed to respond with the new value
