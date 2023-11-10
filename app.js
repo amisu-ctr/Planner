@@ -34,7 +34,7 @@ app.use(errorHandleMiddlwware ) //This assists the asyncWrapper in getting the m
 // app.patch('/api/v1/tasks/:id', tasks);       - update task
 // app.delete('/api/v1/tasks/:id', tasks);       - delete task
 
-const port = 3000;
+const port = process.env.PORT || 3000
 
 const start = async () => {
   try {
