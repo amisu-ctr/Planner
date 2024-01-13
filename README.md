@@ -1,5 +1,5 @@
 
-## Task Manager App
+##  Planner
 A simple Task Manager application built with Express and Node.js, following the MVC (Model-View-Controller) pattern.
 
 ## Installation
